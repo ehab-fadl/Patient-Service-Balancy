@@ -135,6 +135,52 @@ namespace PatientService.Data.Migrations
                     b.ToTable("ChronicPsychDiseases", (string)null);
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.CssrsAssessment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswersJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsCritical")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("CssrsAssessments", (string)null);
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.DepressionStory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -171,6 +217,60 @@ namespace PatientService.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("DepressionStories", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.Diagnosis", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DiagnosisDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MainType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("SubType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("Diagnoses", (string)null);
                 });
 
             modelBuilder.Entity("PatientService.Models.Entities.FamilyHistory", b =>
@@ -281,6 +381,121 @@ namespace PatientService.Data.Migrations
                     b.HasIndex("PatientId", "IsDeleted");
 
                     b.ToTable("Gad7Assessments", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.MdqAssessment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswersJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("MdqAssessments", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.Medication", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Dose")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Frequency")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("IntakePeriod")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Route")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("Medications", (string)null);
                 });
 
             modelBuilder.Entity("PatientService.Models.Entities.PatientCode", b =>
@@ -432,6 +647,49 @@ namespace PatientService.Data.Migrations
                     b.ToTable("Phq9Assessments", (string)null);
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.SdsAssessment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswersJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("SdsAssessments", (string)null);
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.VitalSign", b =>
                 {
                     b.Property<Guid>("Id")
@@ -509,11 +767,33 @@ namespace PatientService.Data.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.CssrsAssessment", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.DepressionStory", b =>
                 {
                     b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
                         .WithOne("DepressionStory")
                         .HasForeignKey("PatientService.Models.Entities.DepressionStory", "PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.Diagnosis", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -542,6 +822,28 @@ namespace PatientService.Data.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.MdqAssessment", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.Medication", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.PatientCode", b =>
                 {
                     b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
@@ -554,6 +856,17 @@ namespace PatientService.Data.Migrations
                 });
 
             modelBuilder.Entity("PatientService.Models.Entities.Phq9Assessment", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.SdsAssessment", b =>
                 {
                     b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
                         .WithMany()

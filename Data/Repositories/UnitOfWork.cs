@@ -17,7 +17,12 @@ public class UnitOfWork : IUnitOfWork
     private IFamilyHistoryRepository? _familyHistoryRepository;
     private IVitalSignRepository? _vitalSignRepository;
     private IGad7AssessmentRepository? _gad7AssessmentRepository;
-    private IPhq9AssessmentRepository? _phq9AssessmentRepository; // ← جديد
+    private IPhq9AssessmentRepository? _phq9AssessmentRepository;
+    private IMdqAssessmentRepository? _mdqAssessmentRepository;
+    private ISdsAssessmentRepository? _sdsAssessmentRepository;
+    private ICssrsAssessmentRepository? _cssrsAssessmentRepository;
+    private IDiagnosisRepository? _diagnosisRepository;
+    private IMedicationRepository? _medicationRepository; // ← جديد
 
     public UnitOfWork(PatientDbContext context)
     {
@@ -32,7 +37,12 @@ public class UnitOfWork : IUnitOfWork
     public IFamilyHistoryRepository FamilyHistories => _familyHistoryRepository ??= new FamilyHistoryRepository(_context);
     public IVitalSignRepository VitalSigns => _vitalSignRepository ??= new VitalSignRepository(_context);
     public IGad7AssessmentRepository Gad7Assessments => _gad7AssessmentRepository ??= new Gad7AssessmentRepository(_context);
-    public IPhq9AssessmentRepository Phq9Assessments => _phq9AssessmentRepository ??= new Phq9AssessmentRepository(_context); // ← جديد
+    public IPhq9AssessmentRepository Phq9Assessments => _phq9AssessmentRepository ??= new Phq9AssessmentRepository(_context);
+    public IMdqAssessmentRepository MdqAssessments => _mdqAssessmentRepository ??= new MdqAssessmentRepository(_context);
+    public ISdsAssessmentRepository SdsAssessments => _sdsAssessmentRepository ??= new SdsAssessmentRepository(_context);
+    public ICssrsAssessmentRepository CssrsAssessments => _cssrsAssessmentRepository ??= new CssrsAssessmentRepository(_context);
+    public IDiagnosisRepository Diagnoses => _diagnosisRepository ??= new DiagnosisRepository(_context);
+    public IMedicationRepository Medications => _medicationRepository ??= new MedicationRepository(_context); // ← جديد
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 

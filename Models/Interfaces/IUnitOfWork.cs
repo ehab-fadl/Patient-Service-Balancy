@@ -10,7 +10,12 @@ public interface IUnitOfWork : IDisposable
     IFamilyHistoryRepository FamilyHistories { get; }
     IVitalSignRepository VitalSigns { get; }
     IGad7AssessmentRepository Gad7Assessments { get; }
-    IPhq9AssessmentRepository Phq9Assessments { get; } // ← جديد
+    IPhq9AssessmentRepository Phq9Assessments { get; }
+    IMdqAssessmentRepository MdqAssessments { get; }
+    ISdsAssessmentRepository SdsAssessments { get; }
+    ICssrsAssessmentRepository CssrsAssessments { get; }
+    IDiagnosisRepository Diagnoses { get; }
+    IMedicationRepository Medications { get; } // ← جديد
 
     Task<int> SaveChangesAsync();
     Task BeginTransactionAsync();
