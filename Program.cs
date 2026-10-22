@@ -26,7 +26,9 @@ builder.Services.AddScoped<IDepressionStoryRepository, DepressionStoryRepository
 builder.Services.AddScoped<IChronicDiseaseRepository, ChronicDiseaseRepository>();
 builder.Services.AddScoped<IChronicPsychDiseaseRepository, ChronicPsychDiseaseRepository>();
 builder.Services.AddScoped<IFamilyHistoryRepository, FamilyHistoryRepository>();
-builder.Services.AddScoped<IVitalSignRepository, VitalSignRepository>(); // ← جديد
+builder.Services.AddScoped<IVitalSignRepository, VitalSignRepository>();
+builder.Services.AddScoped<IGad7AssessmentRepository, Gad7AssessmentRepository>();
+builder.Services.AddScoped<IPhq9AssessmentRepository, Phq9AssessmentRepository>(); // ← جديد
 
 // Services
 builder.Services.AddScoped<IPatientPersonalInfoService, PatientPersonalInfoService>();
@@ -34,7 +36,9 @@ builder.Services.AddScoped<IDepressionStoryService, DepressionStoryService>();
 builder.Services.AddScoped<IChronicDiseaseService, ChronicDiseaseService>();
 builder.Services.AddScoped<IChronicPsychDiseaseService, ChronicPsychDiseaseService>();
 builder.Services.AddScoped<IFamilyHistoryService, FamilyHistoryService>();
-builder.Services.AddScoped<IVitalSignService, VitalSignService>(); // ← جديد
+builder.Services.AddScoped<IVitalSignService, VitalSignService>();
+builder.Services.AddScoped<IGad7AssessmentService, Gad7AssessmentService>();
+builder.Services.AddScoped<IPhq9AssessmentService, Phq9AssessmentService>(); // ← جديد
 
 // Factories
 builder.Services.AddScoped<IPatientPersonalInfoFactory, PatientPersonalInfoFactory>();
@@ -44,7 +48,9 @@ builder.Services.AddScoped<IDepressionStoryFactory, DepressionStoryFactory>();
 builder.Services.AddScoped<IChronicDiseaseFactory, ChronicDiseaseFactory>();
 builder.Services.AddScoped<IChronicPsychDiseaseFactory, ChronicPsychDiseaseFactory>();
 builder.Services.AddScoped<IFamilyHistoryFactory, FamilyHistoryFactory>();
-builder.Services.AddScoped<IVitalSignFactory, VitalSignFactory>(); // ← جديد
+builder.Services.AddScoped<IVitalSignFactory, VitalSignFactory>();
+builder.Services.AddScoped<IGad7AssessmentFactory, Gad7AssessmentFactory>();
+builder.Services.AddScoped<IPhq9AssessmentFactory, Phq9AssessmentFactory>(); // ← جديد
 
 // Validation
 builder.Services.AddFluentValidationAutoValidation();

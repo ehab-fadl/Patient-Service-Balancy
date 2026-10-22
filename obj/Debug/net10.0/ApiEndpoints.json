@@ -303,6 +303,91 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PatientService.Controllers.Gad7AssessmentsController",
+    "Method": "Create",
+    "RelativePath": "api/Gad7Assessments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.Gad7Assessment.Gad7AssessmentCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Gad7AssessmentsController",
+    "Method": "GetById",
+    "RelativePath": "api/Gad7Assessments/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Gad7AssessmentsController",
+    "Method": "Update",
+    "RelativePath": "api/Gad7Assessments/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.Gad7Assessment.Gad7AssessmentUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Gad7AssessmentsController",
+    "Method": "Delete",
+    "RelativePath": "api/Gad7Assessments/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Gad7AssessmentsController",
+    "Method": "GetByPatient",
+    "RelativePath": "api/Gad7Assessments/patient/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PatientService.Controllers.PatientPersonalInfoController",
     "Method": "GetAll",
     "RelativePath": "api/PatientPersonalInfo",
@@ -388,6 +473,91 @@
         "Name": "term",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Phq9AssessmentsController",
+    "Method": "Create",
+    "RelativePath": "api/Phq9Assessments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.Phq9Assessment.Phq9AssessmentCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Phq9AssessmentsController",
+    "Method": "GetById",
+    "RelativePath": "api/Phq9Assessments/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Phq9AssessmentsController",
+    "Method": "Update",
+    "RelativePath": "api/Phq9Assessments/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.Phq9Assessment.Phq9AssessmentUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Phq9AssessmentsController",
+    "Method": "Delete",
+    "RelativePath": "api/Phq9Assessments/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.Phq9AssessmentsController",
+    "Method": "GetByPatient",
+    "RelativePath": "api/Phq9Assessments/patient/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

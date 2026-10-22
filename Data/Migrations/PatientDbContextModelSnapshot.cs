@@ -240,6 +240,49 @@ namespace PatientService.Data.Migrations
                     b.ToTable("FamilyHistories", (string)null);
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.Gad7Assessment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswersJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("Gad7Assessments", (string)null);
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.PatientCode", b =>
                 {
                     b.Property<Guid>("Id")
@@ -346,6 +389,49 @@ namespace PatientService.Data.Migrations
                     b.ToTable("PatientPersonalInfos", (string)null);
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.Phq9Assessment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswersJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("Phq9Assessments", (string)null);
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.VitalSign", b =>
                 {
                     b.Property<Guid>("Id")
@@ -445,11 +531,33 @@ namespace PatientService.Data.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.Gad7Assessment", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.PatientCode", b =>
                 {
                     b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
                         .WithOne("PatientCode")
                         .HasForeignKey("PatientService.Models.Entities.PatientCode", "PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.Phq9Assessment", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

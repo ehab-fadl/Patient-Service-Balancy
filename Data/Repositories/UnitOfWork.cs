@@ -15,7 +15,9 @@ public class UnitOfWork : IUnitOfWork
     private IChronicDiseaseRepository? _chronicDiseaseRepository;
     private IChronicPsychDiseaseRepository? _chronicPsychDiseaseRepository;
     private IFamilyHistoryRepository? _familyHistoryRepository;
-    private IVitalSignRepository? _vitalSignRepository; // ← جديد
+    private IVitalSignRepository? _vitalSignRepository;
+    private IGad7AssessmentRepository? _gad7AssessmentRepository;
+    private IPhq9AssessmentRepository? _phq9AssessmentRepository; // ← جديد
 
     public UnitOfWork(PatientDbContext context)
     {
@@ -28,7 +30,9 @@ public class UnitOfWork : IUnitOfWork
     public IChronicDiseaseRepository ChronicDiseases => _chronicDiseaseRepository ??= new ChronicDiseaseRepository(_context);
     public IChronicPsychDiseaseRepository ChronicPsychDiseases => _chronicPsychDiseaseRepository ??= new ChronicPsychDiseaseRepository(_context);
     public IFamilyHistoryRepository FamilyHistories => _familyHistoryRepository ??= new FamilyHistoryRepository(_context);
-    public IVitalSignRepository VitalSigns => _vitalSignRepository ??= new VitalSignRepository(_context); // ← جديد
+    public IVitalSignRepository VitalSigns => _vitalSignRepository ??= new VitalSignRepository(_context);
+    public IGad7AssessmentRepository Gad7Assessments => _gad7AssessmentRepository ??= new Gad7AssessmentRepository(_context);
+    public IPhq9AssessmentRepository Phq9Assessments => _phq9AssessmentRepository ??= new Phq9AssessmentRepository(_context); // ← جديد
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 

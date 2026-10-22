@@ -14,7 +14,9 @@ public class PatientDbContext : DbContext
     public DbSet<ChronicDisease> ChronicDiseases => Set<ChronicDisease>();
     public DbSet<ChronicPsychDisease> ChronicPsychDiseases => Set<ChronicPsychDisease>();
     public DbSet<FamilyHistory> FamilyHistories => Set<FamilyHistory>();
-    public DbSet<VitalSign> VitalSigns => Set<VitalSign>(); // ← جديد
+    public DbSet<VitalSign> VitalSigns => Set<VitalSign>();
+    public DbSet<Gad7Assessment> Gad7Assessments => Set<Gad7Assessment>();
+    public DbSet<Phq9Assessment> Phq9Assessments => Set<Phq9Assessment>(); // ← جديد
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

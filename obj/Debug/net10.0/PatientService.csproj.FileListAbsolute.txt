@@ -170,3 +170,4 @@ D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\Patient
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.pdb
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.genruntimeconfig.cache
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\ref\PatientService.dll
+D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.sourcelink.json
