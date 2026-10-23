@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using PatientService.Data.Context;
+using PatientService.Models.Entities;
 using PatientService.Models.Interfaces;
 
 namespace PatientService.Data.Repositories;
@@ -22,7 +23,14 @@ public class UnitOfWork : IUnitOfWork
     private ISdsAssessmentRepository? _sdsAssessmentRepository;
     private ICssrsAssessmentRepository? _cssrsAssessmentRepository;
     private IDiagnosisRepository? _diagnosisRepository;
-    private IMedicationRepository? _medicationRepository; // ← جديد
+    private IMedicationRepository? _medicationRepository;
+    private ISideEffectRepository? _sideEffectRepository; // ← جديد
+
+    private ITreatmentPlanRepository? _treatmentPlanRepository;
+    private IGenericRepository<TreatmentProblem>? _treatmentProblemRepository;
+    private IGenericRepository<TreatmentGoal>? _treatmentGoalRepository;
+    private IGenericRepository<TreatmentMean>? _treatmentMeanRepository;
+    private IGenericRepository<TreatmentGoalHistory>? _treatmentGoalHistoryRepository;
 
     public UnitOfWork(PatientDbContext context)
     {
@@ -42,7 +50,14 @@ public class UnitOfWork : IUnitOfWork
     public ISdsAssessmentRepository SdsAssessments => _sdsAssessmentRepository ??= new SdsAssessmentRepository(_context);
     public ICssrsAssessmentRepository CssrsAssessments => _cssrsAssessmentRepository ??= new CssrsAssessmentRepository(_context);
     public IDiagnosisRepository Diagnoses => _diagnosisRepository ??= new DiagnosisRepository(_context);
-    public IMedicationRepository Medications => _medicationRepository ??= new MedicationRepository(_context); // ← جديد
+    public IMedicationRepository Medications => _medicationRepository ??= new MedicationRepository(_context);
+    public ISideEffectRepository SideEffects => _sideEffectRepository ??= new SideEffectRepository(_context); // ← جديد
+
+    public ITreatmentPlanRepository TreatmentPlans => _treatmentPlanRepository ??= new TreatmentPlanRepository(_context);
+    public IGenericRepository<TreatmentProblem> TreatmentProblems => _treatmentProblemRepository ??= new GenericRepository<TreatmentProblem>(_context);
+    public IGenericRepository<TreatmentGoal> TreatmentGoals => _treatmentGoalRepository ??= new GenericRepository<TreatmentGoal>(_context);
+    public IGenericRepository<TreatmentMean> TreatmentMeans => _treatmentMeanRepository ??= new GenericRepository<TreatmentMean>(_context);
+    public IGenericRepository<TreatmentGoalHistory> TreatmentGoalHistories => _treatmentGoalHistoryRepository ??= new GenericRepository<TreatmentGoalHistory>(_context);
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 

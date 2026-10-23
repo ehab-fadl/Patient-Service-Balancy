@@ -33,7 +33,9 @@ builder.Services.AddScoped<IMdqAssessmentRepository, MdqAssessmentRepository>();
 builder.Services.AddScoped<ISdsAssessmentRepository, SdsAssessmentRepository>();
 builder.Services.AddScoped<ICssrsAssessmentRepository, CssrsAssessmentRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
-builder.Services.AddScoped<IMedicationRepository, MedicationRepository>(); // ← جديد
+builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
+builder.Services.AddScoped<ISideEffectRepository, SideEffectRepository>(); // ← جديد
+builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
 
 // Services
 builder.Services.AddScoped<IPatientPersonalInfoService, PatientPersonalInfoService>();
@@ -48,7 +50,9 @@ builder.Services.AddScoped<IMdqAssessmentService, MdqAssessmentService>();
 builder.Services.AddScoped<ISdsAssessmentService, SdsAssessmentService>();
 builder.Services.AddScoped<ICssrsAssessmentService, CssrsAssessmentService>();
 builder.Services.AddScoped<IDiagnosisService, DiagnosisService>();
-builder.Services.AddScoped<IMedicationService, MedicationService>(); // ← جديد
+builder.Services.AddScoped<IMedicationService, MedicationService>();
+builder.Services.AddScoped<ISideEffectService, SideEffectService>(); // ← جديد
+builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
 
 // Factories
 builder.Services.AddScoped<IPatientPersonalInfoFactory, PatientPersonalInfoFactory>();
@@ -65,7 +69,8 @@ builder.Services.AddScoped<IMdqAssessmentFactory, MdqAssessmentFactory>();
 builder.Services.AddScoped<ISdsAssessmentFactory, SdsAssessmentFactory>();
 builder.Services.AddScoped<ICssrsAssessmentFactory, CssrsAssessmentFactory>();
 builder.Services.AddScoped<IDiagnosisFactory, DiagnosisFactory>();
-builder.Services.AddScoped<IMedicationFactory, MedicationFactory>(); // ← جديد
+builder.Services.AddScoped<IMedicationFactory, MedicationFactory>();
+builder.Services.AddScoped<ISideEffectFactory, SideEffectFactory>(); // ← جديد
 
 // Validation
 builder.Services.AddFluentValidationAutoValidation();

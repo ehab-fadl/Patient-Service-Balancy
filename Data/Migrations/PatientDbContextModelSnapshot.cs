@@ -25,7 +25,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.ChronicDisease", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -74,7 +73,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.ChronicPsychDisease", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -138,7 +136,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.CssrsAssessment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswersJson")
@@ -184,7 +181,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.DepressionStory", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -222,7 +218,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.Diagnosis", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -276,7 +271,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.FamilyHistory", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Age")
@@ -343,7 +337,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.Gad7Assessment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswersJson")
@@ -386,7 +379,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.MdqAssessment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswersJson")
@@ -429,7 +421,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.Medication", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -501,7 +492,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.PatientCode", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
@@ -541,7 +531,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.PatientPersonalInfo", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
@@ -607,7 +596,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.Phq9Assessment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswersJson")
@@ -650,7 +638,6 @@ namespace PatientService.Data.Migrations
             modelBuilder.Entity("PatientService.Models.Entities.SdsAssessment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswersJson")
@@ -690,10 +677,261 @@ namespace PatientService.Data.Migrations
                     b.ToTable("SdsAssessments", (string)null);
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.SideEffect", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MedicationName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Symptom")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("PatientId", "IsDeleted");
+
+                    b.ToTable("SideEffects", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentGoal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("AchievedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AchievedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AchievementNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Baseline")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("CurrentValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PatientConfirmedByDoctor")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasDefaultValue("pending");
+
+                    b.Property<decimal?>("TargetValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("TreatmentProblemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Unit")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreatmentProblemId");
+
+                    b.ToTable("TreatmentGoals", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentGoalHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TreatmentGoalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreatmentGoalId");
+
+                    b.HasIndex("TreatmentGoalId", "RecordedAt");
+
+                    b.ToTable("TreatmentGoalHistories", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentMean", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("TreatmentGoalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreatmentGoalId");
+
+                    b.ToTable("TreatmentMeans", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PlanDoctorName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("TreatmentPlans", (string)null);
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentProblem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreatmentPlanId");
+
+                    b.ToTable("TreatmentProblems", (string)null);
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.VitalSign", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -877,6 +1115,72 @@ namespace PatientService.Data.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("PatientService.Models.Entities.SideEffect", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentGoal", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.TreatmentProblem", "TreatmentProblem")
+                        .WithMany("Goals")
+                        .HasForeignKey("TreatmentProblemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TreatmentProblem");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentGoalHistory", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.TreatmentGoal", "TreatmentGoal")
+                        .WithMany("ProgressHistory")
+                        .HasForeignKey("TreatmentGoalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TreatmentGoal");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentMean", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.TreatmentGoal", "TreatmentGoal")
+                        .WithMany("Means")
+                        .HasForeignKey("TreatmentGoalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TreatmentGoal");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentPlan", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentProblem", b =>
+                {
+                    b.HasOne("PatientService.Models.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany("Problems")
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TreatmentPlan");
+                });
+
             modelBuilder.Entity("PatientService.Models.Entities.VitalSign", b =>
                 {
                     b.HasOne("PatientService.Models.Entities.PatientPersonalInfo", "Patient")
@@ -893,6 +1197,23 @@ namespace PatientService.Data.Migrations
                     b.Navigation("DepressionStory");
 
                     b.Navigation("PatientCode");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentGoal", b =>
+                {
+                    b.Navigation("Means");
+
+                    b.Navigation("ProgressHistory");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentPlan", b =>
+                {
+                    b.Navigation("Problems");
+                });
+
+            modelBuilder.Entity("PatientService.Models.Entities.TreatmentProblem", b =>
+                {
+                    b.Navigation("Goals");
                 });
 #pragma warning restore 612, 618
         }

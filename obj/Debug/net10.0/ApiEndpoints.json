@@ -988,6 +988,382 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PatientService.Controllers.SideEffectsController",
+    "Method": "Create",
+    "RelativePath": "api/SideEffects",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.SideEffect.SideEffectCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.SideEffectsController",
+    "Method": "GetById",
+    "RelativePath": "api/SideEffects/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.SideEffectsController",
+    "Method": "Update",
+    "RelativePath": "api/SideEffects/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.SideEffect.SideEffectUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.SideEffectsController",
+    "Method": "Delete",
+    "RelativePath": "api/SideEffects/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.SideEffectsController",
+    "Method": "GetByPatient",
+    "RelativePath": "api/SideEffects/patient/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "Create",
+    "RelativePath": "api/TreatmentPlans",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentPlanCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "Update",
+    "RelativePath": "api/TreatmentPlans/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentPlanUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "Delete",
+    "RelativePath": "api/TreatmentPlans/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "AddGoal",
+    "RelativePath": "api/TreatmentPlans/goals",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentGoalCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "UpdateGoalConfig",
+    "RelativePath": "api/TreatmentPlans/goals/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentGoalUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "DeleteGoal",
+    "RelativePath": "api/TreatmentPlans/goals/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "AchieveGoal",
+    "RelativePath": "api/TreatmentPlans/goals/{id}/achieve",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentGoalAchieveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "UpdateGoalProgress",
+    "RelativePath": "api/TreatmentPlans/goals/{id}/progress",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentGoalProgressDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "UnachieveGoal",
+    "RelativePath": "api/TreatmentPlans/goals/{id}/unachieve",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentGoalUnachieveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "AddMean",
+    "RelativePath": "api/TreatmentPlans/means",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentMeanCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "UpdateMean",
+    "RelativePath": "api/TreatmentPlans/means/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentMeanUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "DeleteMean",
+    "RelativePath": "api/TreatmentPlans/means/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "GetByPatient",
+    "RelativePath": "api/TreatmentPlans/patient/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "AddProblem",
+    "RelativePath": "api/TreatmentPlans/problems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentProblemCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "UpdateProblem",
+    "RelativePath": "api/TreatmentPlans/problems/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "PatientService.Services.DTOs.TreatmentPlan.TreatmentProblemUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientService.Controllers.TreatmentPlansController",
+    "Method": "DeleteProblem",
+    "RelativePath": "api/TreatmentPlans/problems/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PatientService.Controllers.VitalSignsController",
     "Method": "Create",
     "RelativePath": "api/VitalSigns",

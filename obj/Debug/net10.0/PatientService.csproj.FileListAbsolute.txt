@@ -154,6 +154,7 @@ D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\Patient
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.csproj.CoreCompileInputs.cache
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.sourcelink.json
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\rjimswa.dswa.cache.json
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -170,4 +171,3 @@ D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\Patient
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.pdb
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.genruntimeconfig.cache
 D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\ref\PatientService.dll
-D:\Projects\Asp.Net_Core_Projects\MicroservivesDepressionProject\Backend\PatientService\PatientService\PatientService\obj\Debug\net10.0\PatientService.sourcelink.json

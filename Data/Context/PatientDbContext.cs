@@ -21,11 +21,31 @@ public class PatientDbContext : DbContext
     public DbSet<SdsAssessment> SdsAssessments => Set<SdsAssessment>();
     public DbSet<CssrsAssessment> CssrsAssessments => Set<CssrsAssessment>();
     public DbSet<Diagnosis> Diagnoses => Set<Diagnosis>();
-    public DbSet<Medication> Medications => Set<Medication>(); // ← جديد
+    public DbSet<Medication> Medications => Set<Medication>();
+    public DbSet<SideEffect> SideEffects => Set<SideEffect>(); // ← جديد
+
+    // Treatment Plans Tree
+    public DbSet<TreatmentPlan> TreatmentPlans => Set<TreatmentPlan>();
+    public DbSet<TreatmentProblem> TreatmentProblems => Set<TreatmentProblem>();
+    public DbSet<TreatmentGoal> TreatmentGoals => Set<TreatmentGoal>();
+    public DbSet<TreatmentMean> TreatmentMeans => Set<TreatmentMean>();
+    public DbSet<TreatmentGoalHistory> TreatmentGoalHistories => Set<TreatmentGoalHistory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // الحل الجذري لمشكلة Concurrency مع الـ Guid
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(BaseEntity.Id))
+                    .ValueGeneratedNever();
+            }
+        }
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PatientDbContext).Assembly);
     }
 

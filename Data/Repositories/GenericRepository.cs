@@ -39,15 +39,20 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public virtual async Task<T> AddAsync(T entity)
     {
-        entity.Id = Guid.NewGuid();
-        await _dbSet.AddAsync(entity);
+        _context.Add(entity);
+
         await _context.SaveChangesAsync();
         return entity;
     }
 
     public virtual async Task UpdateAsync(T entity)
     {
-        _dbSet.Update(entity);
+        // إذا كان الكيان غير متتبع (Detached)، نقوم بإرفاقه وتحديده كـ Modified
+        if (_context.Entry(entity).State == EntityState.Detached)
+        {
+            _dbSet.Update(entity);
+        }
+        // إذا كان متتبعاً بالفعل، فلا داعي لعمل أي شيء، EF Core سيعرف التغييرات تلقائياً
         await _context.SaveChangesAsync();
     }
 

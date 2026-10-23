@@ -1,4 +1,6 @@
-﻿namespace PatientService.Models.Interfaces;
+﻿using PatientService.Models.Entities;
+
+namespace PatientService.Models.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
@@ -15,7 +17,15 @@ public interface IUnitOfWork : IDisposable
     ISdsAssessmentRepository SdsAssessments { get; }
     ICssrsAssessmentRepository CssrsAssessments { get; }
     IDiagnosisRepository Diagnoses { get; }
-    IMedicationRepository Medications { get; } // ← جديد
+    IMedicationRepository Medications { get; }
+    ISideEffectRepository SideEffects { get; } // ← جديد
+
+    // Treatment Plans Tree
+    ITreatmentPlanRepository TreatmentPlans { get; }
+    IGenericRepository<TreatmentProblem> TreatmentProblems { get; }
+    IGenericRepository<TreatmentGoal> TreatmentGoals { get; }
+    IGenericRepository<TreatmentMean> TreatmentMeans { get; }
+    IGenericRepository<TreatmentGoalHistory> TreatmentGoalHistories { get; }
 
     Task<int> SaveChangesAsync();
     Task BeginTransactionAsync();
