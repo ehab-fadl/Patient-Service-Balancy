@@ -24,7 +24,12 @@ public class UnitOfWork : IUnitOfWork
     private ICssrsAssessmentRepository? _cssrsAssessmentRepository;
     private IDiagnosisRepository? _diagnosisRepository;
     private IMedicationRepository? _medicationRepository;
-    private ISideEffectRepository? _sideEffectRepository; // ← جديد
+    private ISideEffectRepository? _sideEffectRepository;
+    private IVisitRepository? _visitRepository;
+    private ISubstanceUseRepository? _substanceUseRepository;
+    private IListeningSessionRepository? _listeningSessionRepository;
+    private IPatientNoteRepository? _patientNoteRepository;
+    private IDoctorNoteRepository? _doctorNoteRepository; // ← جديد
 
     private ITreatmentPlanRepository? _treatmentPlanRepository;
     private IGenericRepository<TreatmentProblem>? _treatmentProblemRepository;
@@ -51,7 +56,12 @@ public class UnitOfWork : IUnitOfWork
     public ICssrsAssessmentRepository CssrsAssessments => _cssrsAssessmentRepository ??= new CssrsAssessmentRepository(_context);
     public IDiagnosisRepository Diagnoses => _diagnosisRepository ??= new DiagnosisRepository(_context);
     public IMedicationRepository Medications => _medicationRepository ??= new MedicationRepository(_context);
-    public ISideEffectRepository SideEffects => _sideEffectRepository ??= new SideEffectRepository(_context); // ← جديد
+    public ISideEffectRepository SideEffects => _sideEffectRepository ??= new SideEffectRepository(_context);
+    public IVisitRepository Visits => _visitRepository ??= new VisitRepository(_context);
+    public ISubstanceUseRepository SubstanceUses => _substanceUseRepository ??= new SubstanceUseRepository(_context);
+    public IListeningSessionRepository ListeningSessions => _listeningSessionRepository ??= new ListeningSessionRepository(_context);
+    public IPatientNoteRepository PatientNotes => _patientNoteRepository ??= new PatientNoteRepository(_context);
+    public IDoctorNoteRepository DoctorNotes => _doctorNoteRepository ??= new DoctorNoteRepository(_context); // ← جديد
 
     public ITreatmentPlanRepository TreatmentPlans => _treatmentPlanRepository ??= new TreatmentPlanRepository(_context);
     public IGenericRepository<TreatmentProblem> TreatmentProblems => _treatmentProblemRepository ??= new GenericRepository<TreatmentProblem>(_context);

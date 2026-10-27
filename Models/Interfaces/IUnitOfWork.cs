@@ -18,7 +18,12 @@ public interface IUnitOfWork : IDisposable
     ICssrsAssessmentRepository CssrsAssessments { get; }
     IDiagnosisRepository Diagnoses { get; }
     IMedicationRepository Medications { get; }
-    ISideEffectRepository SideEffects { get; } // ← جديد
+    ISideEffectRepository SideEffects { get; }
+    IVisitRepository Visits { get; }
+    ISubstanceUseRepository SubstanceUses { get; }
+    IListeningSessionRepository ListeningSessions { get; }
+    IPatientNoteRepository PatientNotes { get; }
+    IDoctorNoteRepository DoctorNotes { get; } // ← جديد
 
     // Treatment Plans Tree
     ITreatmentPlanRepository TreatmentPlans { get; }

@@ -22,7 +22,12 @@ public class PatientDbContext : DbContext
     public DbSet<CssrsAssessment> CssrsAssessments => Set<CssrsAssessment>();
     public DbSet<Diagnosis> Diagnoses => Set<Diagnosis>();
     public DbSet<Medication> Medications => Set<Medication>();
-    public DbSet<SideEffect> SideEffects => Set<SideEffect>(); // ← جديد
+    public DbSet<SideEffect> SideEffects => Set<SideEffect>();
+    public DbSet<Visit> Visits => Set<Visit>();
+    public DbSet<SubstanceUse> SubstanceUses => Set<SubstanceUse>();
+    public DbSet<ListeningSession> ListeningSessions => Set<ListeningSession>();
+    public DbSet<PatientNote> PatientNotes => Set<PatientNote>();
+    public DbSet<DoctorNote> DoctorNotes => Set<DoctorNote>(); // ← جديد
 
     // Treatment Plans Tree
     public DbSet<TreatmentPlan> TreatmentPlans => Set<TreatmentPlan>();
@@ -35,7 +40,6 @@ public class PatientDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // الحل الجذري لمشكلة Concurrency مع الـ Guid
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))

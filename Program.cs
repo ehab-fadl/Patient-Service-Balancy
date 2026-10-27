@@ -34,7 +34,12 @@ builder.Services.AddScoped<ISdsAssessmentRepository, SdsAssessmentRepository>();
 builder.Services.AddScoped<ICssrsAssessmentRepository, CssrsAssessmentRepository>();
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
-builder.Services.AddScoped<ISideEffectRepository, SideEffectRepository>(); // ← جديد
+builder.Services.AddScoped<ISideEffectRepository, SideEffectRepository>();
+builder.Services.AddScoped<IVisitRepository, VisitRepository>();
+builder.Services.AddScoped<ISubstanceUseRepository, SubstanceUseRepository>();
+builder.Services.AddScoped<IListeningSessionRepository, ListeningSessionRepository>();
+builder.Services.AddScoped<IPatientNoteRepository, PatientNoteRepository>();
+builder.Services.AddScoped<IDoctorNoteRepository, DoctorNoteRepository>(); // ← جديد
 builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
 
 // Services
@@ -51,7 +56,12 @@ builder.Services.AddScoped<ISdsAssessmentService, SdsAssessmentService>();
 builder.Services.AddScoped<ICssrsAssessmentService, CssrsAssessmentService>();
 builder.Services.AddScoped<IDiagnosisService, DiagnosisService>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
-builder.Services.AddScoped<ISideEffectService, SideEffectService>(); // ← جديد
+builder.Services.AddScoped<ISideEffectService, SideEffectService>();
+builder.Services.AddScoped<IVisitService, VisitService>();
+builder.Services.AddScoped<ISubstanceUseService, SubstanceUseService>();
+builder.Services.AddScoped<IListeningSessionService, ListeningSessionService>();
+builder.Services.AddScoped<IPatientNoteService, PatientNoteService>();
+builder.Services.AddScoped<IDoctorNoteService, DoctorNoteService>(); // ← جديد
 builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
 
 // Factories
@@ -70,7 +80,12 @@ builder.Services.AddScoped<ISdsAssessmentFactory, SdsAssessmentFactory>();
 builder.Services.AddScoped<ICssrsAssessmentFactory, CssrsAssessmentFactory>();
 builder.Services.AddScoped<IDiagnosisFactory, DiagnosisFactory>();
 builder.Services.AddScoped<IMedicationFactory, MedicationFactory>();
-builder.Services.AddScoped<ISideEffectFactory, SideEffectFactory>(); // ← جديد
+builder.Services.AddScoped<ISideEffectFactory, SideEffectFactory>();
+builder.Services.AddScoped<IVisitFactory, VisitFactory>();
+builder.Services.AddScoped<ISubstanceUseFactory, SubstanceUseFactory>();
+builder.Services.AddScoped<IListeningSessionFactory, ListeningSessionFactory>();
+builder.Services.AddScoped<IPatientNoteFactory, PatientNoteFactory>();
+builder.Services.AddScoped<IDoctorNoteFactory, DoctorNoteFactory>(); // ← جديد
 
 // Validation
 builder.Services.AddFluentValidationAutoValidation();
