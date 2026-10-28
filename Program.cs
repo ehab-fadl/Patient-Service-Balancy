@@ -41,6 +41,9 @@ builder.Services.AddScoped<IListeningSessionRepository, ListeningSessionReposito
 builder.Services.AddScoped<IPatientNoteRepository, PatientNoteRepository>();
 builder.Services.AddScoped<IDoctorNoteRepository, DoctorNoteRepository>(); // ← جديد
 builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
+builder.Services.AddScoped<IDailyPatientMetricRepository, DailyPatientMetricRepository>();
+builder.Services.AddScoped<IPatientReportRepository, PatientReportRepository>();
+builder.Services.AddScoped<IPatientDocumentRepository, PatientDocumentRepository>();
 
 // Services
 builder.Services.AddScoped<IPatientPersonalInfoService, PatientPersonalInfoService>();
@@ -63,7 +66,9 @@ builder.Services.AddScoped<IListeningSessionService, ListeningSessionService>();
 builder.Services.AddScoped<IPatientNoteService, PatientNoteService>();
 builder.Services.AddScoped<IDoctorNoteService, DoctorNoteService>(); // ← جديد
 builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
-
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 // Factories
 builder.Services.AddScoped<IPatientPersonalInfoFactory, PatientPersonalInfoFactory>();
 builder.Services.AddScoped<IPatientCodeFactory, PatientCodeFactory>();

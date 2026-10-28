@@ -23,7 +23,10 @@ public interface IUnitOfWork : IDisposable
     ISubstanceUseRepository SubstanceUses { get; }
     IListeningSessionRepository ListeningSessions { get; }
     IPatientNoteRepository PatientNotes { get; }
-    IDoctorNoteRepository DoctorNotes { get; } // ← جديد
+    IDoctorNoteRepository DoctorNotes { get; }
+    IDailyPatientMetricRepository DailyPatientMetrics { get; }
+    IPatientReportRepository PatientReports { get; }
+    IPatientDocumentRepository PatientDocuments { get; }
 
     // Treatment Plans Tree
     ITreatmentPlanRepository TreatmentPlans { get; }

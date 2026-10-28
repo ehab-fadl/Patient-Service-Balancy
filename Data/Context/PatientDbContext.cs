@@ -27,7 +27,10 @@ public class PatientDbContext : DbContext
     public DbSet<SubstanceUse> SubstanceUses => Set<SubstanceUse>();
     public DbSet<ListeningSession> ListeningSessions => Set<ListeningSession>();
     public DbSet<PatientNote> PatientNotes => Set<PatientNote>();
-    public DbSet<DoctorNote> DoctorNotes => Set<DoctorNote>(); // ← جديد
+    public DbSet<DoctorNote> DoctorNotes => Set<DoctorNote>();
+    public DbSet<DailyPatientMetric> DailyPatientMetrics => Set<DailyPatientMetric>();
+    public DbSet<PatientReport> PatientReports => Set<PatientReport>();
+    public DbSet<PatientDocument> PatientDocuments => Set<PatientDocument>();
 
     // Treatment Plans Tree
     public DbSet<TreatmentPlan> TreatmentPlans => Set<TreatmentPlan>();

@@ -68,11 +68,17 @@ public class UnitOfWork : IUnitOfWork
     public IGenericRepository<TreatmentGoal> TreatmentGoals => _treatmentGoalRepository ??= new GenericRepository<TreatmentGoal>(_context);
     public IGenericRepository<TreatmentMean> TreatmentMeans => _treatmentMeanRepository ??= new GenericRepository<TreatmentMean>(_context);
     public IGenericRepository<TreatmentGoalHistory> TreatmentGoalHistories => _treatmentGoalHistoryRepository ??= new GenericRepository<TreatmentGoalHistory>(_context);
+    private IDailyPatientMetricRepository? _dailyPatientMetricRepository;
+    public IDailyPatientMetricRepository DailyPatientMetrics => _dailyPatientMetricRepository ??= new DailyPatientMetricRepository(_context);
 
+    private IPatientDocumentRepository? _patientDocumentRepository;
+    public IPatientDocumentRepository PatientDocuments => _patientDocumentRepository ??= new PatientDocumentRepository(_context);
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
     public async Task BeginTransactionAsync() => _transaction = await _context.Database.BeginTransactionAsync();
 
+    private IPatientReportRepository? _patientReportRepository;
+    public IPatientReportRepository PatientReports => _patientReportRepository ??= new PatientReportRepository(_context);
     public async Task CommitTransactionAsync()
     {
         if (_transaction != null)
@@ -99,4 +105,4 @@ public class UnitOfWork : IUnitOfWork
         _context.Dispose();
         GC.SuppressFinalize(this);
     }
-}
+  }

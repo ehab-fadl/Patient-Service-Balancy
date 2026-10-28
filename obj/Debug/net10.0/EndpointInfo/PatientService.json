@@ -1460,6 +1460,46 @@
         }
       }
     },
+    "/api/mobile/metrics": {
+      "post": {
+        "tags": [
+          "MobileMetrics"
+        ],
+        "parameters": [
+          {
+            "name": "X-Patient-Code",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyMetricSubmitDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyMetricSubmitDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyMetricSubmitDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PatientNotes/patient/{patientId}": {
       "get": {
         "tags": [
@@ -1871,6 +1911,150 @@
         }
       }
     },
+    "/api/Reports/snapshot/{patientId}": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reports": {
+      "post": {
+        "tags": [
+          "Reports"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reports/patient/{patientId}": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reports/{id}": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reports/{id}/favorite": {
+      "put": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/SdsAssessments/patient/{patientId}": {
       "get": {
         "tags": [
@@ -2140,6 +2324,53 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Statistics/patient/{patientId}": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "week"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -3267,6 +3498,64 @@
         },
         "additionalProperties": false
       },
+      "DailyMetricSubmitDto": {
+        "type": "object",
+        "properties": {
+          "logDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "food": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sleepHours": {
+            "type": "number",
+            "format": "double"
+          },
+          "medicationAdherence": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mood": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "negativeThoughts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "physicalHealth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "energy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "motivation": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "concentration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "guilt": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hope": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "suicidalIdeation": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "DepressionStoryUpdateDto": {
         "type": "object",
         "properties": {
@@ -4220,6 +4509,37 @@
         },
         "additionalProperties": false
       },
+      "ReportCreateDto": {
+        "type": "object",
+        "properties": {
+          "patientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reportType": {
+            "type": "string",
+            "nullable": true
+          },
+          "reportTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "documentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "formData": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SdsAssessmentCreateDto": {
         "type": "object",
         "properties": {
@@ -4877,6 +5197,9 @@
       "name": "Medications"
     },
     {
+      "name": "MobileMetrics"
+    },
+    {
       "name": "PatientNotes"
     },
     {
@@ -4886,10 +5209,16 @@
       "name": "Phq9Assessments"
     },
     {
+      "name": "Reports"
+    },
+    {
       "name": "SdsAssessments"
     },
     {
       "name": "SideEffects"
+    },
+    {
+      "name": "Statistics"
     },
     {
       "name": "SubstanceUses"
