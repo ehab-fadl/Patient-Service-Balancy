@@ -27,6 +27,8 @@ public interface IUnitOfWork : IDisposable
     IDailyPatientMetricRepository DailyPatientMetrics { get; }
     IPatientReportRepository PatientReports { get; }
     IPatientDocumentRepository PatientDocuments { get; }
+    ISystemAlertRepository SystemAlerts { get; }
+    IAppointmentRepository Appointments { get; }
 
     // Treatment Plans Tree
     ITreatmentPlanRepository TreatmentPlans { get; }

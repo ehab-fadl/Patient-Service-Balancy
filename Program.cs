@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using PatientService.Data.Context;
 using PatientService.Data.Repositories;
+using PatientService.Middleware;
 using PatientService.Models.Interfaces;
 using PatientService.Services.Factories;
 using PatientService.Services.Implementations;
@@ -18,7 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PatientDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Repositories
+// ─── Repositories ───
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPatientPersonalInfoRepository, PatientPersonalInfoRepository>();
 builder.Services.AddScoped<IPatientCodeRepository, PatientCodeRepository>();
@@ -39,13 +40,15 @@ builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 builder.Services.AddScoped<ISubstanceUseRepository, SubstanceUseRepository>();
 builder.Services.AddScoped<IListeningSessionRepository, ListeningSessionRepository>();
 builder.Services.AddScoped<IPatientNoteRepository, PatientNoteRepository>();
-builder.Services.AddScoped<IDoctorNoteRepository, DoctorNoteRepository>(); // ← جديد
-builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
-builder.Services.AddScoped<IDailyPatientMetricRepository, DailyPatientMetricRepository>();
-builder.Services.AddScoped<IPatientReportRepository, PatientReportRepository>();
+builder.Services.AddScoped<IDoctorNoteRepository, DoctorNoteRepository>();
 builder.Services.AddScoped<IPatientDocumentRepository, PatientDocumentRepository>();
+builder.Services.AddScoped<IPatientReportRepository, PatientReportRepository>();
+builder.Services.AddScoped<IDailyPatientMetricRepository, DailyPatientMetricRepository>();
+builder.Services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
+builder.Services.AddScoped<ISystemAlertRepository, SystemAlertRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
-// Services
+// ─── Services ───
 builder.Services.AddScoped<IPatientPersonalInfoService, PatientPersonalInfoService>();
 builder.Services.AddScoped<IDepressionStoryService, DepressionStoryService>();
 builder.Services.AddScoped<IChronicDiseaseService, ChronicDiseaseService>();
@@ -64,12 +67,18 @@ builder.Services.AddScoped<IVisitService, VisitService>();
 builder.Services.AddScoped<ISubstanceUseService, SubstanceUseService>();
 builder.Services.AddScoped<IListeningSessionService, ListeningSessionService>();
 builder.Services.AddScoped<IPatientNoteService, PatientNoteService>();
-builder.Services.AddScoped<IDoctorNoteService, DoctorNoteService>(); // ← جديد
-builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
-builder.Services.AddScoped<IStatisticsService, StatisticsService>();
-builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IDoctorNoteService, DoctorNoteService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
-// Factories
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+builder.Services.AddScoped<ITreatmentPlanService, TreatmentPlanService>();
+builder.Services.AddScoped<IClinicService, ClinicService>();
+builder.Services.AddScoped<IAlertService, AlertService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IMobileService, MobileService>(); // ← جديد
+
+// ─── Factories ───
 builder.Services.AddScoped<IPatientPersonalInfoFactory, PatientPersonalInfoFactory>();
 builder.Services.AddScoped<IPatientCodeFactory, PatientCodeFactory>();
 builder.Services.AddScoped<IPatientCodeGenerator, PatientCodeGenerator>();
@@ -90,13 +99,13 @@ builder.Services.AddScoped<IVisitFactory, VisitFactory>();
 builder.Services.AddScoped<ISubstanceUseFactory, SubstanceUseFactory>();
 builder.Services.AddScoped<IListeningSessionFactory, ListeningSessionFactory>();
 builder.Services.AddScoped<IPatientNoteFactory, PatientNoteFactory>();
-builder.Services.AddScoped<IDoctorNoteFactory, DoctorNoteFactory>(); // ← جديد
+builder.Services.AddScoped<IDoctorNoteFactory, DoctorNoteFactory>();
 
-// Validation
+// ─── Validation ───
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<PatientPersonalInfoCreateValidator>();
 
-// CORS
+// ─── CORS ───
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -112,6 +121,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+
+// ← Middleware للموبايل (بعد Cors وقبل Authorization)
+app.UseMiddleware<PatientCodeAuthMiddleware>();
+
 app.UseAuthorization();
 app.MapControllers();
 

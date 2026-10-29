@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using PatientService.Models.Entities;
 using PatientService.Models.Interfaces;
 using PatientService.Services.Common;
 using PatientService.Services.DTOs.Statistics;
@@ -18,15 +17,15 @@ public class StatisticsService : IStatisticsService
         _logger = logger;
     }
 
-    // 1. تطبيق الطبيب: جلب الإحصائيات
-    public async Task<ServiceResult<IEnumerable<MetricDataDto>>> GetMetricsAsync(Guid patientId, string range, DateTime? startDate, DateTime? endDate, Guid doctorId)
+    public async Task<ServiceResult<IEnumerable<MetricDataDto>>> GetMetricsAsync(
+        Guid patientId, string range, DateTime? startDate, DateTime? endDate, Guid doctorId)
     {
         var patient = await _unitOfWork.PatientPersonalInfos.GetByIdAsync(patientId);
         if (patient is null || patient.DoctorId != doctorId)
-            return ServiceResult<IEnumerable<MetricDataDto>>.FailureResult("غير مصرح لك بالوصول إلى بيانات هذا المريض");
+            return ServiceResult<IEnumerable<MetricDataDto>>.FailureResult("غير مصرح");
 
         var today = DateTime.UtcNow.Date;
-        var fromDate = today;
+        var fromDate = today.AddDays(-7);
         var toDate = today;
 
         switch (range)
@@ -41,9 +40,7 @@ public class StatisticsService : IStatisticsService
                     fromDate = startDate.Value.Date;
                     toDate = endDate.Value.Date;
                 }
-                else fromDate = today.AddDays(-7);
                 break;
-            default: fromDate = today.AddDays(-7); break;
         }
 
         var metrics = await _unitOfWork.DailyPatientMetrics.GetByPatientAndDateRangeAsync(patientId, fromDate, toDate);
@@ -66,66 +63,5 @@ public class StatisticsService : IStatisticsService
         });
 
         return ServiceResult<IEnumerable<MetricDataDto>>.SuccessResult(result);
-    }
-
-    // 2. تطبيق الموبايل: إدخال قراءة يومية
-    public async Task<ServiceResult<MetricDataDto>> SubmitDailyMetricAsync(string patientCode, DailyMetricSubmitDto dto)
-    {
-        // البحث عن المريض باستخدام الكود
-        var codeEntity = await _unitOfWork.PatientCodes.GetByCodeAsync(patientCode);
-        if (codeEntity is null || !codeEntity.IsActive)
-            return ServiceResult<MetricDataDto>.NotFoundResult("كود المريض غير صالح أو غير نشط");
-
-        var patientId = codeEntity.PatientId;
-        var logDate = dto.LogDate.Date;
-
-        // التحقق: لا يمكن تسجيل قراءتين لنفس اليوم
-        var existing = await _unitOfWork.DailyPatientMetrics.GetByPatientAndDateAsync(patientId, logDate);
-        if (existing is not null)
-            return ServiceResult<MetricDataDto>.FailureResult("لقد قمت بإدخال قراءات هذا اليوم بالفعل. يمكنك تعديلها بدلاً من إضافتها.");
-
-        var entity = new DailyPatientMetric
-        {
-            Id = Guid.NewGuid(),
-            PatientId = patientId,
-            LogDate = logDate,
-            Food = dto.Food,
-            SleepHours = dto.SleepHours,
-            MedicationAdherence = dto.MedicationAdherence,
-            Mood = dto.Mood,
-            NegativeThoughts = dto.NegativeThoughts,
-            PhysicalHealth = dto.PhysicalHealth,
-            Energy = dto.Energy,
-            Motivation = dto.Motivation,
-            Concentration = dto.Concentration,
-            Guilt = dto.Guilt,
-            Hope = dto.Hope,
-            SuicidalIdeation = dto.SuicidalIdeation
-        };
-
-        await _unitOfWork.DailyPatientMetrics.AddAsync(entity);
-
-        // التحقق من الخطر (بشكل تلقائي)
-        if (entity.SuicidalIdeation >= 3)
-        {
-            _logger.LogWarning("HIGH SUICIDAL IDEATION reported by patient {PatientId} on {Date}", patientId, logDate);
-        }
-
-        return ServiceResult<MetricDataDto>.SuccessResult(new MetricDataDto
-        {
-            Date = entity.LogDate.ToString("yyyy-MM-dd"),
-            Food = entity.Food,
-            Sleep = entity.SleepHours,
-            Medication = entity.MedicationAdherence,
-            Mood = entity.Mood,
-            Negative = entity.NegativeThoughts,
-            Health = entity.PhysicalHealth,
-            Energy = entity.Energy,
-            Motivation = entity.Motivation,
-            Concentration = entity.Concentration,
-            Guilt = entity.Guilt,
-            Hope = entity.Hope,
-            Suicidal = entity.SuicidalIdeation
-        }, "تم تسجيل قراءاتك اليومية بنجاح");
     }
 }

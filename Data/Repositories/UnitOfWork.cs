@@ -29,7 +29,7 @@ public class UnitOfWork : IUnitOfWork
     private ISubstanceUseRepository? _substanceUseRepository;
     private IListeningSessionRepository? _listeningSessionRepository;
     private IPatientNoteRepository? _patientNoteRepository;
-    private IDoctorNoteRepository? _doctorNoteRepository; // ← جديد
+    private IDoctorNoteRepository? _doctorNoteRepository; 
 
     private ITreatmentPlanRepository? _treatmentPlanRepository;
     private IGenericRepository<TreatmentProblem>? _treatmentProblemRepository;
@@ -79,6 +79,10 @@ public class UnitOfWork : IUnitOfWork
 
     private IPatientReportRepository? _patientReportRepository;
     public IPatientReportRepository PatientReports => _patientReportRepository ??= new PatientReportRepository(_context);
+    private ISystemAlertRepository? _systemAlertRepository;
+    public ISystemAlertRepository SystemAlerts => _systemAlertRepository ??= new SystemAlertRepository(_context);
+    private IAppointmentRepository? _appointmentRepository;
+    public IAppointmentRepository Appointments => _appointmentRepository ??= new AppointmentRepository(_context);
     public async Task CommitTransactionAsync()
     {
         if (_transaction != null)

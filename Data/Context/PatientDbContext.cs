@@ -31,7 +31,8 @@ public class PatientDbContext : DbContext
     public DbSet<DailyPatientMetric> DailyPatientMetrics => Set<DailyPatientMetric>();
     public DbSet<PatientReport> PatientReports => Set<PatientReport>();
     public DbSet<PatientDocument> PatientDocuments => Set<PatientDocument>();
-
+    public DbSet<SystemAlert> SystemAlerts => Set<SystemAlert>();
+    public DbSet<Appointment> Appointments => Set<Appointment>();
     // Treatment Plans Tree
     public DbSet<TreatmentPlan> TreatmentPlans => Set<TreatmentPlan>();
     public DbSet<TreatmentProblem> TreatmentProblems => Set<TreatmentProblem>();
