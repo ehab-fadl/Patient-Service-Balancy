@@ -14,10 +14,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// ✅ التعديل الأول: تعريف الـ Swagger هنا (قبل Build) ودمج الشروط
+builder.Services.AddSwaggerGen(c =>
+{
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        return !(apiDesc.RelativePath?.StartsWith("api/internal/etl") ?? false);
+    });
+});
 
 builder.Services.AddDbContext<PatientDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+PatientService.Helpers.DeidentificationHelper.Initialize(builder.Configuration);
 
 // ─── Repositories ───
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -76,7 +86,8 @@ builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IAlertService, AlertService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
-builder.Services.AddScoped<IMobileService, MobileService>(); // ← جديد
+builder.Services.AddScoped<IMobileService, MobileService>();
+builder.Services.AddScoped<IEtlService, EtlService>();
 
 // ─── Factories ───
 builder.Services.AddScoped<IPatientPersonalInfoFactory, PatientPersonalInfoFactory>();
@@ -111,6 +122,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
+// ✅ بناء التطبيق (هنا تصبح الخدمات Read-Only)
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -122,9 +134,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-// ← Middleware للموبايل (بعد Cors وقبل Authorization)
 app.UseMiddleware<PatientCodeAuthMiddleware>();
-
+app.UseMiddleware<PatientService.Middleware.EtlAuthMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 
