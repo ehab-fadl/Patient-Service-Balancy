@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// ✅ التعديل الأول: تعريف الـ Swagger هنا (قبل Build) ودمج الشروط
+// ✅ تعريف الـ Swagger (قبل Build) ودمج الشروط
 builder.Services.AddSwaggerGen(c =>
 {
     c.DocInclusionPredicate((docName, apiDesc) =>
@@ -122,7 +122,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-// ✅ بناء التطبيق (هنا تصبح الخدمات Read-Only)
+// ✅ بناء التطبيق
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -138,5 +138,21 @@ app.UseMiddleware<PatientCodeAuthMiddleware>();
 app.UseMiddleware<PatientService.Middleware.EtlAuthMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
+
+// ✅ تطبيق الـ Migrations تلقائياً عند الإقلاع (تمت الإضافة هنا)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<PatientDbContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating or creating the database.");
+    }
+}
 
 app.Run();
