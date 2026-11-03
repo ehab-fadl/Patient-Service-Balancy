@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  patient-service:
+    build: .
+    container_name: patient_service_app
+    restart: always
+    ports:
+      - "5000:8080" # يمكنك تغيير 5000 إلى البورت الذي تريد استخدامه على السيرفر المنزلي
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
