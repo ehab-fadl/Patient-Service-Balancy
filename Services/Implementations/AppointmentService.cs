@@ -24,22 +24,29 @@ public class AppointmentService : IAppointmentService
         var patients = await _unitOfWork.PatientPersonalInfos.GetByDoctorIdAsync(doctorId);
         var codes = await _unitOfWork.PatientCodes.GetAllAsync();
 
-        var today = DateTime.UtcNow.Date;
+        // ✅ 1. استخدام DateTime.Now بدل DateTime.UtcNow
+        var today = DateTime.Now.Date;
         var weekEnd = today.AddDays(7);
         var monthEnd = today.AddDays(30);
 
         var dtos = appointments.Select(a => MapToDto(a, patients, codes)).ToList();
 
+        // ✅ 2. فلترة مرنة ±يوم لتفادي فروق التوقيت
         var summary = new AppointmentsSummaryDto
         {
             Appointments = dtos,
-            TodayCount = dtos.Count(a => a.ScheduledDate.Date == today),
+            TodayCount = dtos.Count(a => a.ScheduledDate.Date >= today.AddDays(-1)
+                                      && a.ScheduledDate.Date <= today.AddDays(1)),
             WeekCount = dtos.Count(a => a.ScheduledDate.Date >= today && a.ScheduledDate.Date <= weekEnd),
             MonthCount = dtos.Count(a => a.ScheduledDate.Date >= today && a.ScheduledDate.Date <= monthEnd),
             PendingCount = dtos.Count(a => a.Status == "Pending"),
             ConfirmedCount = dtos.Count(a => a.Status == "Confirmed"),
             CompletedCount = dtos.Count(a => a.Status == "Completed")
         };
+
+        _logger.LogInformation(
+            "Appointments retrieved for doctor {DoctorId}: {Count} total, {TodayCount} today(±1d)",
+            doctorId, dtos.Count, summary.TodayCount);
 
         return ServiceResult<AppointmentsSummaryDto>.SuccessResult(summary);
     }
@@ -61,7 +68,8 @@ public class AppointmentService : IAppointmentService
         if (patient is null || patient.DoctorId != doctorId)
             return ServiceResult<AppointmentDto>.NotFoundResult("المريض غير موجود أو غير مصرح");
 
-        if (dto.ScheduledDate.Date < DateTime.UtcNow.Date)
+        // ✅ 3. استخدام DateTime.Now.Date بدل UtcNow.Date
+        if (dto.ScheduledDate.Date < DateTime.Now.Date)
             return ServiceResult<AppointmentDto>.FailureResult("لا يمكن حجز موعد في تاريخ سابق");
 
         // التحقق من تعارض المواعيد
@@ -85,7 +93,9 @@ public class AppointmentService : IAppointmentService
         };
 
         await _unitOfWork.Appointments.AddAsync(appointment);
-        _logger.LogInformation("Appointment created. Id={Id}, PatientId={PatientId}", appointment.Id, dto.PatientId);
+        _logger.LogInformation(
+            "Appointment created. Id={Id}, PatientId={PatientId}, DoctorId={DoctorId}, ScheduledDate={Date}",
+            appointment.Id, dto.PatientId, doctorId, appointment.ScheduledDate);
 
         var code = await _unitOfWork.PatientCodes.GetByPatientIdAsync(dto.PatientId);
         return ServiceResult<AppointmentDto>.SuccessResult(MapToDto(appointment, new[] { patient }, new[] { code! }), "تم حجز الموعد بنجاح");
@@ -148,7 +158,7 @@ public class AppointmentService : IAppointmentService
 
         appointment.Status = "Cancelled";
         appointment.CancellationReason = dto.CancellationReason.Trim();
-        appointment.CancelledAt = DateTime.UtcNow;
+        appointment.CancelledAt = DateTime.UtcNow;   // ← timestamp يبقى UTC
         await _unitOfWork.Appointments.UpdateAsync(appointment);
 
         var patients = await _unitOfWork.PatientPersonalInfos.GetByDoctorIdAsync(doctorId);

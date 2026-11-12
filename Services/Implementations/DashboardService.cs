@@ -19,7 +19,9 @@ public class DashboardService : IDashboardService
 
     public async Task<ServiceResult<DashboardDto>> GetDashboardAsync(Guid doctorId)
     {
-        var today = DateTime.UtcNow.Date;
+        // ✅ 1. استخدام DateTime.Now بدل DateTime.UtcNow
+        //    لأن فلترة "اليوم/الأمس" مرتبطة بتوقيت الطبيب المحلي
+        var today = DateTime.Now.Date;
         var yesterday = today.AddDays(-1);
         var monthAgo = today.AddDays(-30);
         var twoMonthsAgo = today.AddDays(-60);
@@ -38,12 +40,20 @@ public class DashboardService : IDashboardService
         {
             DoctorName = "الطبيب",
             TodayDate = today,
-            GreetingText = GetGreeting(DateTime.UtcNow.Hour)
+            GreetingText = GetGreeting(DateTime.Now.Hour)   // ✅ Now بدل UtcNow
         };
 
         // ─── 2. Quick Stats ───
-        var todayApts = appointments.Where(a => a.ScheduledDate.Date == today).ToList();
-        var yesterdayApts = appointments.Where(a => a.ScheduledDate.Date == yesterday).ToList();
+        // ✅ فلترة مرنة ±يوم لتفادي فروق التوقيت بين السيرفر والعميل
+        var todayApts = appointments
+            .Where(a => a.ScheduledDate.Date >= today.AddDays(-1)
+                     && a.ScheduledDate.Date <= today.AddDays(1))
+            .ToList();
+
+        var yesterdayApts = appointments
+            .Where(a => a.ScheduledDate.Date == yesterday)
+            .ToList();
+
         dto.TodayAppointmentsCount = todayApts.Count;
         dto.TodayAppointmentsChangeFromYesterday = todayApts.Count - yesterdayApts.Count;
 
