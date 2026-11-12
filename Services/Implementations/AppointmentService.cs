@@ -18,20 +18,33 @@ public class AppointmentService : IAppointmentService
         _logger = logger;
     }
 
+    // دالة مساعدة للحصول على توقيت المنطقة الزمنية المحددة
+    private static DateTime GetLocalNow()
+    {
+        try
+        {
+            var tz = TimeZoneInfo.FindSystemTimeZoneById("Europe/Berlin"); // غيّرها إلى "Asia/Riyadh"
+            return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
+        }
+        catch
+        {
+            return DateTime.UtcNow; // fallback في حال عدم توفر ملفات التوقيت
+        }
+    }
+
     public async Task<ServiceResult<AppointmentsSummaryDto>> GetAppointmentsAsync(Guid doctorId)
     {
         var appointments = (await _unitOfWork.Appointments.GetByDoctorIdAsync(doctorId)).ToList();
         var patients = await _unitOfWork.PatientPersonalInfos.GetByDoctorIdAsync(doctorId);
         var codes = await _unitOfWork.PatientCodes.GetAllAsync();
 
-        // ✅ 1. استخدام DateTime.Now بدل DateTime.UtcNow
-        var today = DateTime.Now.Date;
+        var today = GetLocalNow().Date;
         var weekEnd = today.AddDays(7);
         var monthEnd = today.AddDays(30);
 
         var dtos = appointments.Select(a => MapToDto(a, patients, codes)).ToList();
 
-        // ✅ 2. فلترة مرنة ±يوم لتفادي فروق التوقيت
+        // ✅ فلترة مرنة ±يوم
         var summary = new AppointmentsSummaryDto
         {
             Appointments = dtos,
@@ -68,8 +81,8 @@ public class AppointmentService : IAppointmentService
         if (patient is null || patient.DoctorId != doctorId)
             return ServiceResult<AppointmentDto>.NotFoundResult("المريض غير موجود أو غير مصرح");
 
-        // ✅ 3. استخدام DateTime.Now.Date بدل UtcNow.Date
-        if (dto.ScheduledDate.Date < DateTime.Now.Date)
+        // ✅ استخدام التوقيت المحلي للتحقق من التاريخ
+        if (dto.ScheduledDate.Date < GetLocalNow().Date)
             return ServiceResult<AppointmentDto>.FailureResult("لا يمكن حجز موعد في تاريخ سابق");
 
         // التحقق من تعارض المواعيد
@@ -158,7 +171,7 @@ public class AppointmentService : IAppointmentService
 
         appointment.Status = "Cancelled";
         appointment.CancellationReason = dto.CancellationReason.Trim();
-        appointment.CancelledAt = DateTime.UtcNow;   // ← timestamp يبقى UTC
+        appointment.CancelledAt = DateTime.UtcNow;   // timestamp يبقى UTC
         await _unitOfWork.Appointments.UpdateAsync(appointment);
 
         var patients = await _unitOfWork.PatientPersonalInfos.GetByDoctorIdAsync(doctorId);
